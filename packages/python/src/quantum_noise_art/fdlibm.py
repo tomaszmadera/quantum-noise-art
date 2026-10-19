@@ -324,11 +324,10 @@ _IVLN2_L = 1.92596299112661746887e-08
 
 
 def pow(x: float, y: float) -> float:  # noqa: A001 - mirrors Math.pow
-    """V8 ``Math.pow`` / ``**``.
+    """``x ** y`` exactly as V8 12 (Node.js <= 22) computes ``Math.pow``.
 
-    The general path is an exact port. Special cases (NaN, infinities, zeros,
-    negative bases, overflow) defer to ``math.pow`` semantics where they agree
-    with ECMAScript; the generators only call ``pow(u, 1.6)`` with 0 <= u < 1.
+    Node.js 24 (V8 13) changed ``Math.pow``; both packages use this fdlibm
+    port instead, so results do not depend on the JavaScript engine.
     """
     x = float(x)
     y = float(y)
@@ -343,30 +342,60 @@ def pow(x: float, y: float) -> float:  # noqa: A001 - mirrors Math.pow
 
     if (iy | ly) == 0:
         return 1.0
-    if math.isnan(x) or math.isnan(y):
-        return math.nan
-    if math.isinf(x) or math.isinf(y) or x <= 0.0:
-        # Rare special cases: ECMAScript and C99 agree except for (+-1)**+-Inf.
-        if math.isinf(y) and abs(x) == 1.0:
-            return math.nan
-        try:
-            return math.pow(x, y)
-        except (ValueError, OverflowError, ZeroDivisionError):
-            if x < 0 and not math.isinf(x) and y != math.floor(y):
-                return math.nan
-            return math.inf
-    # From here on x is positive and finite, y finite and non-zero.
+    if ix > 0x7FF00000 or (ix == 0x7FF00000 and lx != 0) or iy > 0x7FF00000 or (iy == 0x7FF00000 and ly != 0):
+        return x + y
+
+    # yisint = 0: y not an integer, 1: odd integer, 2: even integer (only when x < 0)
+    yisint = 0
+    if hx < 0:
+        if iy >= 0x43400000:
+            yisint = 2
+        elif iy >= 0x3FF00000:
+            k = (iy >> 20) - 0x3FF
+            if k > 20:
+                j = ly >> (52 - k)
+                if ((j << (52 - k)) & 0xFFFFFFFF) == ly:
+                    yisint = 2 - (j & 1)
+            elif ly == 0:
+                j = iy >> (20 - k)
+                if (j << (20 - k)) == iy:
+                    yisint = 2 - (j & 1)
+
     if ly == 0:
+        if iy == 0x7FF00000:
+            if ((ix - 0x3FF00000) | lx) == 0:
+                return y - y
+            if ix >= 0x3FF00000:
+                return y if hy >= 0 else 0.0
+            return -y if hy < 0 else 0.0
         if iy == 0x3FF00000:
-            return 1.0 / x if hy < 0 else x
+            if hy < 0:
+                return 1.0 / x if x != 0 else math.copysign(math.inf, x)
+            return x
         if hy == 0x40000000:
             return x * x
-        if hy == 0x3FE00000:
+        if hy == 0x3FE00000 and hx >= 0:
             return math.sqrt(x)
+
     ax = abs(x)
-    if lx == 0 and ix == 0x3FF00000:
-        return 1.0
+    if lx == 0 and (ix == 0x7FF00000 or ix == 0 or ix == 0x3FF00000):
+        z = ax
+        if hy < 0:
+            z = 1.0 / z if z != 0 else math.inf
+        if hx < 0:
+            if ((ix - 0x3FF00000) | yisint) == 0:
+                z = math.nan
+            elif yisint == 1:
+                z = -z
+        return z
+
+    n = (hx >> 31) + 1
+    if (n | yisint) == 0:
+        return math.nan
+
     s = 1.0
+    if (n | (yisint - 1)) == 0:
+        s = -1.0
 
     if iy > 0x41E00000:
         if iy > 0x43F00000:
@@ -435,14 +464,14 @@ def pow(x: float, y: float) -> float:  # noqa: A001 - mirrors Math.pow
     i = bz & 0xFFFFFFFF
     if j >= 0x40900000:
         if ((j - 0x40900000) | i) != 0:
-            return math.inf
+            return s * _HUGE * _HUGE
         if p_l + _OVT > z - p_h:
-            return math.inf
+            return s * _HUGE * _HUGE
     elif (j & 0x7FFFFFFF) >= 0x4090CC00:
         if ((j - _s32(0xC090CC00)) | i) != 0:
-            return 0.0
+            return s * _TINY * _TINY
         if p_l <= z - p_h:
-            return 0.0
+            return s * _TINY * _TINY
     i = j & 0x7FFFFFFF
     k = (i >> 20) - 0x3FF
     n = 0

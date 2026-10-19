@@ -2,9 +2,12 @@
  * Hero particle / orbit visual (tilted elliptical orbits, dense core, dust,
  * marker squares). The `classic` variant is a faithful port of
  * OrbitField.astro from quantumnoise.dev and produces byte-identical markup.
+ * It uses the fdlibm `pow` port instead of `Math.pow`, which changed in
+ * Node.js 24, so the output does not depend on the Node.js version.
  */
 import { dotPath, gauss, rng, rotate, type Point } from './noise.js';
 import { classList, el } from './svg.js';
+import { pow } from './fdlibm.js';
 
 export interface OrbitFieldOptions {
   /** Default 1729 (the site's hero). */
@@ -54,7 +57,7 @@ export function classicOrbitField(options: OrbitFieldOptions = {}): string {
     const n = Math.round(50 + o.rx * 0.22);
     const phase = r() * Math.PI * 2;
     for (let i = 0; i < n; i++) {
-      const t = phase + Math.pow(r(), 1.6) * Math.PI * 2;
+      const t = phase + pow(r(), 1.6) * Math.PI * 2;
       const p: Point = [cx + o.rx * Math.cos(t) + gauss(r) * 3.5, cy + o.ry * Math.sin(t) + gauss(r) * 2.5];
       put(rotate(p, cx, cy, o.rot));
     }

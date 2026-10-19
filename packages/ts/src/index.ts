@@ -9,6 +9,7 @@ import { classicNoiseThumb, type NoiseThumbOptions } from './noise-thumb.js';
 import { classicOrbitField, type OrbitFieldOptions } from './orbit-field.js';
 import { withXmlns } from './svg.js';
 
+export { pow } from './fdlibm.js';
 export { dotPath, gauss, pad2, rng, rotate, type Point } from './noise.js';
 export { attr, classList, el, escapeAttr, withXmlns } from './svg.js';
 export { classicNoiseThumb, TONE_ACCENTS, type NoiseThumbOptions, type Tone } from './noise-thumb.js';

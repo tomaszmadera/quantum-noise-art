@@ -1,23 +1,24 @@
-// Guards against a JavaScript engine whose Math.sin/cos/log/pow differ from
-// the V8/fdlibm results the fixtures (and the Python port) are based on.
+// The generators call the engine's Math.sin, Math.cos and Math.log directly,
+// so those must match the V8/fdlibm results the fixtures were rendered with:
+// any drift here is a real failure. pow is NOT taken from the engine (the
+// package ships its own fdlibm port, see fdlibm.test.mjs), so a different
+// Math.pow (as in Node.js 24 / V8 13) is only reported as a diagnostic.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readVectors, same } from './vectors.mjs';
 
-const view = new DataView(new ArrayBuffer(8));
-const fromHex = (h) => { view.setBigUint64(0, BigInt(`0x${h}`)); return view.getFloat64(0); };
-const toHex = (x) => { view.setFloat64(0, x); return view.getBigUint64(0).toString(16).padStart(16, '0'); };
+const vectors = readVectors();
 
-test('Math functions match the recorded V8 vectors bit for bit', () => {
-  const text = readFileSync(new URL('../../../fixtures/math-vectors.txt', import.meta.url), 'utf8');
-  let count = 0;
-  for (const line of text.trim().split('\n')) {
-    const [name, ...rest] = line.split(' ');
-    const expected = rest.pop();
-    const got = Math[name](...rest.map(fromHex));
-    if (Number.isNaN(fromHex(expected))) assert.ok(Number.isNaN(got), line);
-    else assert.equal(toHex(got), expected, line);
-    count++;
-  }
-  assert.ok(count > 1000);
+for (const name of ['sin', 'cos', 'log']) {
+  test(`engine Math.${name} matches the recorded V8 vectors bit for bit`, () => {
+    const own = vectors.filter((v) => v.name === name);
+    assert.ok(own.length > 1000);
+    for (const v of own) assert.ok(same(Math[name](...v.args), v.expected), v.line);
+  });
+}
+
+test('engine Math.pow drift (informational, not used by the generators)', (t) => {
+  const own = vectors.filter((v) => v.name === 'pow');
+  const drift = own.filter((v) => !same(Math.pow(...v.args), v.expected)).length;
+  t.diagnostic(`Math.pow differs from fdlibm on ${drift}/${own.length} vectors (V8 ${process.versions.v8})`);
 });

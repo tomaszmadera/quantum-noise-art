@@ -56,7 +56,7 @@ const { seed, ...rest } = Astro.props;
 ```
 
 Low-level helpers are exported too: `rng` (mulberry32), `gauss` (Box-Muller),
-`dotPath`, `rotate`, `pad2`, plus the markup helpers `el`, `attr`,
+`dotPath`, `rotate`, `pad2`, `pow` (engine-independent fdlibm `Math.pow`), plus the markup helpers `el`, `attr`,
 `escapeAttr`, `classList` and `withXmlns`.
 
 ## Python
@@ -118,10 +118,10 @@ and returns an SVG string. `xmlns` is applied after the variant renders.
   rendering.
 - `tools/crosscheck` renders random cases in both languages and compares
   hashes.
-- `tools/ci/github-actions-ci.yml` is the GitHub Actions workflow (Node.js
-  20/22/24, Python 3.9/3.13 on Linux, Windows and macOS, plus a 300-case
-  cross-check). It is not enabled yet: it becomes active once it is moved to
-  `.github/workflows/ci.yml`.
+- GitHub Actions (`.github/workflows/ci.yml`) runs the TypeScript tests on
+  Node.js 20, 22 and 24, the Python tests on Python 3.9 and 3.13 on Linux,
+  Windows and macOS, and a 300-case TypeScript/Python cross-check on every
+  push.
 
 Reproducing JavaScript in Python needs care in a few places, all covered by
 tests:
@@ -134,16 +134,29 @@ tests:
   while Python's `math` uses the platform C library. They differ in the last
   bit for a few percent of inputs, so the Python package ships pure-Python
   ports of the fdlibm routines (`quantum_noise_art.fdlibm`), checked against
-  vectors recorded from Node.js (`fixtures/math-vectors.txt`).
+  vectors recorded from Node.js 22 (`fixtures/math-vectors.txt`).
+- `pow` in TypeScript too: Node.js 24 (V8 13) changed `Math.pow`, which now
+  differs from Node.js 20/22 in the last bit for about one call in ten.
+  `orbitField` uses `pow(r(), 1.6)`, so the TypeScript package ships the same
+  fdlibm `pow` port (exported as `pow`) instead of calling `Math.pow`. A test
+  replaces `Math.pow` with a function that throws to prove the generators
+  never call it.
 
 ## Limitations
 
-- Exactness is verified against Node.js (V8), the engine the site builds
-  with. Other JavaScript engines (Bun, Deno's or browsers' builds of V8 with
-  different math settings, Safari) may compute `Math.sin`/`cos`/`log`/`pow`
-  differently in the last bit. The final coordinates are rounded to 0.1, so
-  this would very rarely change any output, but it is not guaranteed. The
-  `engine` test detects such an engine.
+- Node.js versions: the fixtures were rendered with Node.js 22. The package's
+  output is identical on Node.js 20, 22 and 24 (tested in CI). The site's own
+  Astro components, as long as they still call `Math.pow` directly, are not
+  guaranteed to give identical output on Node.js 24 versus 22. In practice
+  no difference was found across 50,000 orbit-field seeds, because the
+  coordinates are rounded to 0.1. Switching the site to this package removes
+  that dependency.
+- `Math.sin`, `Math.cos` and `Math.log` are still taken from the engine.
+  They are identical on Node.js 20, 22 and 24. Other engines (Bun, Safari,
+  browser builds of V8 with different math settings) may differ in the last
+  bit, which would very rarely change an output. The `engine` test fails on
+  such an engine. It only reports drift in `Math.pow`, which the generators
+  do not use.
 - In Python, `sin`/`cos` arguments above about 823,000 fall back to the
   platform `math` module. The generators never get near that.
 - `seed`, sizes and dot counts are treated as JavaScript numbers (doubles);
