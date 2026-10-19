@@ -1,0 +1,39 @@
+{
+  "name": "quantum-noise-art",
+  "version": "0.1.0",
+  "description": "Seeded, dependency-free SVG generators for space, nebula and orbit graphics (from quantumnoise.dev).",
+  "license": "MIT",
+  "author": "Tomasz Madera",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomaszmadera/quantum-noise-art.git"
+  },
+  "keywords": ["svg", "generative", "procedural", "noise", "seeded", "prng", "mulberry32"],
+  "sideEffects": false,
+  "main": "./packages/ts/dist/index.js",
+  "types": "./packages/ts/dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./packages/ts/dist/index.d.ts",
+      "default": "./packages/ts/dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "packages/ts/dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc -p packages/ts/tsconfig.json",
+    "test": "npm run build && node --test packages/ts/test/*.test.mjs",
+    "test:python": "cd packages/python && python3 -m unittest discover -s tests -v"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3"
+  }
+}

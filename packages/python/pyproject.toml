@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quantum-noise-art"
+version = "0.1.0"
+description = "Seeded, dependency-free SVG generators for space, nebula and orbit graphics (from quantumnoise.dev)."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Tomasz Madera" }]
+requires-python = ">=3.9"
+dependencies = []
+keywords = ["svg", "generative", "procedural", "noise", "seeded", "mulberry32"]
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Multimedia :: Graphics",
+]
+
+[project.urls]
+Homepage = "https://github.com/tomaszmadera/quantum-noise-art"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+quantum_noise_art = ["py.typed"]

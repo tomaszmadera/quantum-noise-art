@@ -1,0 +1,14 @@
+{
+  "name": "quantum-noise-art-golden",
+  "private": true,
+  "type": "module",
+  "description": "Renders the original quantumnoise.dev Astro components to produce the golden SVG fixtures.",
+  "scripts": {
+    "build": "astro build",
+    "extract": "node extract.mjs",
+    "golden": "astro build && node extract.mjs"
+  },
+  "dependencies": {
+    "astro": "7.4.0"
+  }
+}

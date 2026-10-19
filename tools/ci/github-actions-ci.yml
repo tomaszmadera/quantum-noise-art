@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  typescript:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [20, 22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm ci
+      - run: npm test
+      - name: Committed dist is up to date
+        run: git diff --exit-code -- packages/ts/dist
+
+  python:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python: ['3.9', '3.13']
+        exclude:
+          - os: macos-latest
+            python: '3.9'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m unittest discover -s tests -v
+        working-directory: packages/python
+      - run: python -m pip install ./packages/python && python -c "import quantum_noise_art as q; print(len(q.orbit_field()))"
+
+  crosscheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: npm ci && npm run build
+      - name: TypeScript and Python agree on random cases
+        run: |
+          node tools/crosscheck/generate.mjs 300 "$GITHUB_RUN_ID" > cases.jsonl
+          python tools/crosscheck/check.py cases.jsonl

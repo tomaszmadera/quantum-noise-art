@@ -1,0 +1,13 @@
+---
+import NoiseThumb from '../components/NoiseThumb.astro';
+import OrbitField from '../components/OrbitField.astro';
+import cases from '../../../../fixtures/cases.json';
+
+export function getStaticPaths() {
+  return cases.map((c) => ({ params: { name: c.name }, props: { c } }));
+}
+
+const { c } = Astro.props;
+const props = c.props;
+---
+{c.component === 'NoiseThumb' ? <NoiseThumb {...props} /> : <OrbitField {...props} />}

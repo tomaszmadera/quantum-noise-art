@@ -1,0 +1,527 @@
+[
+  {
+    "name": "orbit-field-default",
+    "component": "OrbitField",
+    "props": {},
+    "source": "site: index hero <OrbitField />"
+  },
+  {
+    "name": "orbit-field-404",
+    "component": "OrbitField",
+    "props": {
+      "seed": 404
+    },
+    "source": "site: 404 page"
+  },
+  {
+    "name": "noise-thumb-4242-420x260-1100-default-class",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 4242,
+      "width": 420,
+      "height": 260,
+      "dots": 1100,
+      "class": "absolute inset-0"
+    },
+    "source": "site"
+  },
+  {
+    "name": "noise-thumb-909-260x220-520-mono-class",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 909,
+      "width": 260,
+      "height": 220,
+      "dots": 520,
+      "tone": "mono",
+      "class": "absolute inset-0"
+    },
+    "source": "site"
+  },
+  {
+    "name": "noise-thumb-8128-480x270-600-blue-class",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 8128,
+      "width": 480,
+      "height": 270,
+      "dots": 600,
+      "tone": "blue",
+      "class": "absolute inset-0"
+    },
+    "source": "site"
+  },
+  {
+    "name": "noise-thumb-6174-480x270-700-violet-class",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 6174,
+      "width": 480,
+      "height": 270,
+      "dots": 700,
+      "tone": "violet",
+      "class": "absolute inset-0"
+    },
+    "source": "site"
+  },
+  {
+    "name": "noise-thumb-2024-480x270-650-mono-class",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 2024,
+      "width": 480,
+      "height": 270,
+      "dots": 650,
+      "tone": "mono",
+      "class": "absolute inset-0"
+    },
+    "source": "site"
+  },
+  {
+    "name": "noise-thumb-5157-400x250-520-default-class",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 5157,
+      "width": 400,
+      "height": 250,
+      "dots": 520,
+      "class": "absolute inset-0"
+    },
+    "source": "site"
+  },
+  {
+    "name": "noise-thumb-5164-400x250-520-default-class",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 5164,
+      "width": 400,
+      "height": 250,
+      "dots": 520,
+      "class": "absolute inset-0"
+    },
+    "source": "site"
+  },
+  {
+    "name": "noise-thumb-5171-400x250-520-default-class",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 5171,
+      "width": 400,
+      "height": 250,
+      "dots": 520,
+      "class": "absolute inset-0"
+    },
+    "source": "site"
+  },
+  {
+    "name": "noise-thumb-311-320x200-420-default",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 311,
+      "width": 320,
+      "height": 200,
+      "dots": 420
+    },
+    "source": "site: PageHeader"
+  },
+  {
+    "name": "noise-thumb-1618-320x200-420-default",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 1618,
+      "width": 320,
+      "height": 200,
+      "dots": 420
+    },
+    "source": "site: PageHeader"
+  },
+  {
+    "name": "noise-thumb-1414-320x200-420-default",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 1414,
+      "width": 320,
+      "height": 200,
+      "dots": 420
+    },
+    "source": "site: PageHeader"
+  },
+  {
+    "name": "noise-thumb-909-320x200-420-default",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 909,
+      "width": 320,
+      "height": 200,
+      "dots": 420
+    },
+    "source": "site: PageHeader"
+  },
+  {
+    "name": "noise-thumb-2718-320x200-420-default",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 2718,
+      "width": 320,
+      "height": 200,
+      "dots": 420
+    },
+    "source": "site: PageHeader"
+  },
+  {
+    "name": "noise-thumb-909-default-mono",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 909,
+      "tone": "mono"
+    },
+    "source": "site: ideas list"
+  },
+  {
+    "name": "noise-thumb-4242-420x260-1100-mono",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 4242,
+      "width": 420,
+      "height": 260,
+      "dots": 1100,
+      "tone": "mono"
+    },
+    "source": "tone matrix"
+  },
+  {
+    "name": "noise-thumb-4242-420x260-1100-blue",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 4242,
+      "width": 420,
+      "height": 260,
+      "dots": 1100,
+      "tone": "blue"
+    },
+    "source": "tone matrix"
+  },
+  {
+    "name": "noise-thumb-4242-420x260-1100-violet",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 4242,
+      "width": 420,
+      "height": 260,
+      "dots": 1100,
+      "tone": "violet"
+    },
+    "source": "tone matrix"
+  },
+  {
+    "name": "noise-thumb-909-260x220-520-mono",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 909,
+      "width": 260,
+      "height": 220,
+      "dots": 520,
+      "tone": "mono"
+    },
+    "source": "tone matrix"
+  },
+  {
+    "name": "noise-thumb-909-260x220-520-blue",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 909,
+      "width": 260,
+      "height": 220,
+      "dots": 520,
+      "tone": "blue"
+    },
+    "source": "tone matrix"
+  },
+  {
+    "name": "noise-thumb-909-260x220-520-violet",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 909,
+      "width": 260,
+      "height": 220,
+      "dots": 520,
+      "tone": "violet"
+    },
+    "source": "tone matrix"
+  },
+  {
+    "name": "noise-thumb-8128-480x270-600-mono",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 8128,
+      "width": 480,
+      "height": 270,
+      "dots": 600,
+      "tone": "mono"
+    },
+    "source": "tone matrix"
+  },
+  {
+    "name": "noise-thumb-8128-480x270-600-blue",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 8128,
+      "width": 480,
+      "height": 270,
+      "dots": 600,
+      "tone": "blue"
+    },
+    "source": "tone matrix"
+  },
+  {
+    "name": "noise-thumb-8128-480x270-600-violet",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 8128,
+      "width": 480,
+      "height": 270,
+      "dots": 600,
+      "tone": "violet"
+    },
+    "source": "tone matrix"
+  },
+  {
+    "name": "noise-thumb-6174-480x270-700-mono",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 6174,
+      "width": 480,
+      "height": 270,
+      "dots": 700,
+      "tone": "mono"
+    },
+    "source": "tone matrix"
+  },
+  {
+    "name": "noise-thumb-6174-480x270-700-blue",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 6174,
+      "width": 480,
+      "height": 270,
+      "dots": 700,
+      "tone": "blue"
+    },
+    "source": "tone matrix"
+  },
+  {
+    "name": "noise-thumb-6174-480x270-700-violet",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 6174,
+      "width": 480,
+      "height": 270,
+      "dots": 700,
+      "tone": "violet"
+    },
+    "source": "tone matrix"
+  },
+  {
+    "name": "noise-thumb-2024-480x270-650-mono",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 2024,
+      "width": 480,
+      "height": 270,
+      "dots": 650,
+      "tone": "mono"
+    },
+    "source": "tone matrix"
+  },
+  {
+    "name": "noise-thumb-2024-480x270-650-blue",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 2024,
+      "width": 480,
+      "height": 270,
+      "dots": 650,
+      "tone": "blue"
+    },
+    "source": "tone matrix"
+  },
+  {
+    "name": "noise-thumb-2024-480x270-650-violet",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 2024,
+      "width": 480,
+      "height": 270,
+      "dots": 650,
+      "tone": "violet"
+    },
+    "source": "tone matrix"
+  },
+  {
+    "name": "noise-thumb-0-defaults",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 0
+    },
+    "source": "defaults"
+  },
+  {
+    "name": "noise-thumb-1-defaults",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 1
+    },
+    "source": "defaults"
+  },
+  {
+    "name": "noise-thumb-42-defaults",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 42
+    },
+    "source": "defaults"
+  },
+  {
+    "name": "noise-thumb-1729-defaults",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 1729
+    },
+    "source": "defaults"
+  },
+  {
+    "name": "orbit-field-0",
+    "component": "OrbitField",
+    "props": {
+      "seed": 0
+    },
+    "source": "edge seed"
+  },
+  {
+    "name": "orbit-field-1",
+    "component": "OrbitField",
+    "props": {
+      "seed": 1
+    },
+    "source": "edge seed"
+  },
+  {
+    "name": "orbit-field-42",
+    "component": "OrbitField",
+    "props": {
+      "seed": 42
+    },
+    "source": "edge seed"
+  },
+  {
+    "name": "orbit-field-2147483648",
+    "component": "OrbitField",
+    "props": {
+      "seed": 2147483648
+    },
+    "source": "edge seed"
+  },
+  {
+    "name": "orbit-field-neg5",
+    "component": "OrbitField",
+    "props": {
+      "seed": -5
+    },
+    "source": "edge seed"
+  },
+  {
+    "name": "noise-thumb-neg1-defaults",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": -1
+    },
+    "source": "edge: negative seed"
+  },
+  {
+    "name": "noise-thumb-4294967303-defaults",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 4294967303
+    },
+    "source": "edge: seed above 2^32"
+  },
+  {
+    "name": "noise-thumb-2.5-defaults",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 2.5
+    },
+    "source": "edge: fractional seed"
+  },
+  {
+    "name": "noise-thumb-123456789-tiny",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 123456789,
+      "width": 1,
+      "height": 1,
+      "dots": 50
+    },
+    "source": "edge: tiny canvas"
+  },
+  {
+    "name": "noise-thumb-7-fractional-size",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 7,
+      "width": 100.5,
+      "height": 33.3,
+      "dots": 80,
+      "tone": "blue"
+    },
+    "source": "edge: fractional size"
+  },
+  {
+    "name": "noise-thumb-31-zero-dots",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 31,
+      "dots": 0
+    },
+    "source": "edge: zero dots"
+  },
+  {
+    "name": "noise-thumb-99-dense",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 99,
+      "width": 640,
+      "height": 360,
+      "dots": 5000,
+      "tone": "violet"
+    },
+    "source": "edge: many dots"
+  },
+  {
+    "name": "noise-thumb-5-unknown-tone",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 5,
+      "tone": "green"
+    },
+    "source": "edge: unknown tone falls back to mono colour"
+  },
+  {
+    "name": "noise-thumb-11-class-escaping",
+    "component": "NoiseThumb",
+    "props": {
+      "seed": 11,
+      "class": "a&b \"q\" <x>"
+    },
+    "source": "edge: class escaping"
+  },
+  {
+    "name": "orbit-field-1729-class",
+    "component": "OrbitField",
+    "props": {
+      "seed": 1729,
+      "class": "hero w-full"
+    },
+    "source": "class"
+  }
+]
